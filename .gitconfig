@@ -1,0 +1,49 @@
+[alias]
+
+	# List aliases
+	aliases = "config --get-regexp ^alias\\."
+
+	# Show files with conflicts
+	conf = "diff --name-only --diff-filter=U"
+
+	# Remove branches that have already been merged with master
+	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
+	# Switch to a branch, creating it if necessary
+	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+	# Fetch and rebase all locally-tracked remote branches
+	up = "pull --rebase --autostash"
+
+[commit]
+
+	# Sign commits usiung GPG
+	gpgsign = true
+
+[core]
+
+	# Set preferred editor
+	editor = nano
+
+	# Use custom .gitignore
+	excludesfile = ~/.gitignore
+
+[credential]
+
+	# Set credential helper
+	helper = osxkeychain
+
+[gpg]
+
+	# Set gpg program
+	program = /usr/local/MacGPG2/bin/gpg2
+
+[help]
+
+	# Automatically correct and execute mistyped commands
+	autocorrect = 1
+
+[user]
+	email = craig@1ockwood.dev
+	name = 1ockwood
+	signingkey = 25A0C769995953E7
