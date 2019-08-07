@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+###############################################################################
+# iTerm                                                                       #
+###############################################################################
+
+# Copy iTerm settings and theme + set theme
+mkdir -p ~/.iterm/
+cp -r apps/iTerm/com.googlecode.iterm2.plist ~/.iterm/com.googlecode.iterm2.plist 2> /dev/null
+cp -r apps/iTerm/1ockwood.itermcolors ~/.iterm/1ockwood.itermcolors 2> /dev/null
+open ~/.iterm/1ockwood.itermcolors

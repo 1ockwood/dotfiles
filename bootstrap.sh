@@ -2,11 +2,18 @@
 
 cd "$(dirname "${BASH_SOURCE}")";
 
+# Make sure repo is up to date
 git pull origin master;
+
+# Copy fonts to system folder
+rsync --exclude ".DS_Store" -avh --no-perms fonts/. ~/Library/Fonts/
 
 function doIt() {
 	rsync --exclude ".git/" \
+		--exclude "apps/" \
+		--exclude "fonts/" \
 		--exclude ".DS_Store" \
+		--exclude ".apps" \
 		--exclude ".macos" \
 		--exclude "bootstrap.sh" \
 		--exclude "README.md" \
