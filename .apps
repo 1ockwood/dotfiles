@@ -10,6 +10,17 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # iTerm                                                                       #
 ###############################################################################
 
+# Install Fish Shell
+sudo installer -pkg apps/iTerm/fish-3.0.2.pkg -target /
+
+# Install OMF
+curl -L https://get.oh-my.fish > install
+fish install --noninteractive --yes
+rm install
+
+# Install bobthefish theme
+omf install bobthefish
+
 # Copy iTerm settings and theme + set theme
 mkdir -p ~/.iterm/
 cp -r apps/iTerm/com.googlecode.iterm2.plist ~/.iterm/com.googlecode.iterm2.plist 2> /dev/null
