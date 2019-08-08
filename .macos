@@ -205,16 +205,4 @@ defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 # Prevent Photos from opening automatically when devices are plugged in
 defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 
-###############################################################################
-# Kill affected applications                                                  #
-###############################################################################
-
-for app in "Activity Monitor" \
-	"cfprefsd" \
-	"Dock" \
-	"Finder" \
-	"SystemUIServer" \
-	"Terminal" \; do
-	killall "${app}" &> /dev/null
-done
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+echo "Done. Restart system to ensure all changes take effect."
