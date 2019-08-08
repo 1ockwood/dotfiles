@@ -4,13 +4,19 @@
 	aliases = "config --get-regexp ^alias\\."
 
 	# Show files with conflicts
-	conf = "diff --name-only --diff-filter=U"
+	dc = "diff --name-only --diff-filter=U"
 
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
 	# Fetch and rebase all locally-tracked remote branches
 	up = "pull --rebase --autostash"
+
+  # Easier checkout
+	x = "checkout"
+
+  # Easier new branch
+	xn = "checkout -b"
 
 [commit]
 

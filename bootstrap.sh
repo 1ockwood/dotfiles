@@ -13,7 +13,8 @@ function doIt() {
 		--exclude "apps/" \
 		--exclude "fonts/" \
 		--exclude ".DS_Store" \
-		--exclude ".apps" \
+		--exclude ".dev" \
+		--exclude ".iterm" \
 		--exclude ".macos" \
 		--exclude "bootstrap.sh" \
 		--exclude "README.md" \
