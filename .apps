@@ -21,8 +21,11 @@ rm install
 # Install bobthefish theme
 omf install bobthefish
 
+# Copy Fish config files
+mkdir -p ~/.config/fish
+rsync --exclude ".DS_Store" -avh --no-perms apps/iTerm/fish/. ~/.config/fish/
+
 # Copy iTerm settings and theme + set theme
 mkdir -p ~/.iterm/
-cp -r apps/iTerm/com.googlecode.iterm2.plist ~/.iterm/com.googlecode.iterm2.plist 2> /dev/null
-cp -r apps/iTerm/1ockwood.itermcolors ~/.iterm/1ockwood.itermcolors 2> /dev/null
+rsync --exclude ".DS_Store" --exclude "fish" -avh --no-perms apps/iTerm/. ~/.iterm/
 open ~/.iterm/1ockwood.itermcolors
