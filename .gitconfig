@@ -6,9 +6,6 @@
 	# Show files with conflicts
 	conf = "diff --name-only --diff-filter=U"
 
-	# Remove branches that have already been merged with master
-	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
-
 	# Switch to a branch, creating it if necessary
 	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
