@@ -45,8 +45,3 @@
 
 	# Automatically correct and execute mistyped commands
 	autocorrect = 1
-
-[user]
-	email = craig@1ockwood.dev
-	name = 1ockwood
-	signingkey = 33D6A9E9996F2AD7
