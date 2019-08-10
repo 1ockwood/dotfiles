@@ -17,4 +17,4 @@ curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.
 sudo npm install npm@latest -g
 
 # Install global NPM packages
-npm install svgo@latest -g
+sudo npm install svgo@latest -g
