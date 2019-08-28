@@ -11,7 +11,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Install latest Node.js
-curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/" && rm "$HOME/Downloads/node-latest.pkg"
+curl "https://nodejs.org/dist/v10.16.3/node-v10.16.3.pkg" > "$HOME/Downloads/node-v10.16.3.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-v10.16.3.pkg" -target "/" && rm "$HOME/Downloads/node-v10.16.3.pkg"
 
 # Update NPM
 sudo npm install npm@latest -g
