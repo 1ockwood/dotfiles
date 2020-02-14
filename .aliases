@@ -9,8 +9,7 @@ alias flushdns="killall -HUP mDNSResponder"
 # Recursively delete `.DS_Store` files
 alias dscleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
-# docker-compose up
+# Docker
 alias dcu="docker-compose up"
-
-# docker-compose down
+alias dcub="docker-compose up --build"
 alias dcd="docker-compose down"
