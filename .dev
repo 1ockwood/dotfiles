@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Close any open System Preferences panes, to prevent them from overriding
+# settings we’re about to change
+osascript -e 'tell application "iTerm2" to quit'
+
 # Ask for the administrator password upfront
 sudo -v
 
@@ -7,15 +11,40 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
-# Node + NPM                                                                  #
+# iTerm                                                                       #
 ###############################################################################
 
-# Install Node.js
-curl "https://nodejs.org/dist/v10.16.3/node-v10.16.3.pkg" > "$HOME/Downloads/node-v10.16.3.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-v10.16.3.pkg" -target "/" && rm "$HOME/Downloads/node-v10.16.3.pkg"
+# Install iTerm
+curl "https://iterm2.com/downloads/stable/iTerm2-3_3_9.zip" > "$HOME/Downloads/iTerm2.zip" && cd "$HOME/Downloads/" && unzip "$HOME/Downloads/iTerm2.zip" -d "/Applications/"
 
-# Install NPM
-sudo npm install npm@latest -g
+# Copy iTerm settings and theme + set theme
+mkdir -p ~/.iterm/
+rsync --exclude ".DS_Store" -avh --no-perms apps/iTerm/. ~/.iterm/
+open ~/.iterm/1ockwood.itermcolors
 
-# Install global NPM packages
-sudo npm install svgo@latest -g
-sudo npm install npm-check@latest -g
+###############################################################################
+# ZSH                                                                         #
+###############################################################################
+
+# Install newer ZSH
+_packages/zsh-5.7.1/configure && make && make test && sudo make install
+
+# Install Oh My Zsh
+curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+sh install.sh
+
+# Set OMZ theme to "agnoster" in .zshrc
+sed -i '.bak' 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc
+
+# Edit .zshrc to hide user@hostname prompt
+echo '\n # Hide user@hostname in prompt' >> ~/.zshrc
+echo 'prompt_context(){}' >> ~/.zshrc
+
+###############################################################################
+# NVM                                                                         #
+###############################################################################
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | zsh
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
