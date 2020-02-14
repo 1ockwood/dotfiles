@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+###############################################################################
+# Git Info                                                                    #
+###############################################################################
+read -p "Git Author Name: " response_git_author_name
+GIT_AUTHOR_NAME="$response_git_author_name"
+GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+git config --global user.name "$GIT_AUTHOR_NAME"
+
+read -p "Git Author Email: " response_git_author_email
+GIT_AUTHOR_EMAIL="$response_git_author_email"
+GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+git config --global user.email "$GIT_AUTHOR_EMAIL"
+
+read -p "Git Signing Key: " response_git_signing_key
+git config --global user.signingkey "$response_git_signing_key"

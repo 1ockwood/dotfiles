@@ -11,15 +11,21 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 ###############################################################################
+# Git                                                                         #
+###############################################################################
+
+source .gitsetup
+
+###############################################################################
 # iTerm                                                                       #
 ###############################################################################
 
 # Install iTerm
-curl "https://iterm2.com/downloads/stable/iTerm2-3_3_9.zip" > "$HOME/Downloads/iTerm2.zip" && cd "$HOME/Downloads/" && unzip "$HOME/Downloads/iTerm2.zip" -d "/Applications/"
+(curl "https://iterm2.com/downloads/stable/iTerm2-3_3_9.zip" > "$HOME/Downloads/iTerm2.zip" && cd "$HOME/Downloads/" && unzip "$HOME/Downloads/iTerm2.zip" -d "/Applications/")
 
 # Copy iTerm settings and theme + set theme
 mkdir -p ~/.iterm/
-rsync --exclude ".DS_Store" -avh --no-perms apps/iTerm/. ~/.iterm/
+rsync --exclude ".DS_Store" -avh --no-perms resources/apps/iTerm/. ~/.iterm/
 open ~/.iterm/1ockwood.itermcolors
 
 ###############################################################################
@@ -27,24 +33,32 @@ open ~/.iterm/1ockwood.itermcolors
 ###############################################################################
 
 # Install newer ZSH
-_packages/zsh-5.7.1/configure && make && make test && sudo make install
+resources/install/zsh-5.7.1/configure && make && make test && sudo make install
 
 # Install Oh My Zsh
-curl https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-sh install.sh
+(curl "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" > "$HOME/Downloads/install.sh" && cd "$HOME/Downloads/" && sh install.sh; rm install.sh)
 
 # Set OMZ theme to "agnoster" in .zshrc
-sed -i '.bak' 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc
+sed -i '.bak' 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc;
 
 # Edit .zshrc to hide user@hostname prompt
 echo '\n # Hide user@hostname in prompt' >> ~/.zshrc
 echo 'prompt_context(){}' >> ~/.zshrc
 
+# Source aliases
+echo '\n # Source aliases' >> ~/.zshrc
+echo 'source $HOME/.aliases' >> ~/.zshrc
+
 ###############################################################################
 # NVM                                                                         #
 ###############################################################################
 
+# Install NVM
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | zsh
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Install latest node and alias to default
+nvm install node
+nvm alias default node

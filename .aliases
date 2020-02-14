@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Enable aliases to be sudo’ed
+alias sudo="sudo "
+
+# Flush Directory Service cache
+alias flushdns="killall -HUP mDNSResponder"
+
+# Recursively delete `.DS_Store` files
+alias dscleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+# docker-compose up
+alias dcu="docker-compose up"
+
+# docker-compose down
+alias dcd="docker-compose down"
