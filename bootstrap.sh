@@ -10,11 +10,9 @@ rsync --exclude ".DS_Store" -avh --no-perms resources/fonts/. ~/Library/Fonts/
 
 function copy_files() {
 	rsync --exclude ".git/" \
+    --exclude "helpers/" \
     --exclude "resources/" \
 		--exclude ".DS_Store" \
-		--exclude ".dev" \
-		--exclude ".gitsetup" \
-		--exclude ".macos" \
 		--exclude "bootstrap.sh" \
 		--exclude "README.md" \
 		-avh --no-perms . ~;
