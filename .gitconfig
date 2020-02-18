@@ -45,3 +45,8 @@
 
 	# Automatically correct and execute mistyped commands
 	autocorrect = 1
+
+[pager]
+
+  # Disable branch list opening in vim
+	branch = false

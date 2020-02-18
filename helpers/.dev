@@ -29,31 +29,37 @@ rsync --exclude ".DS_Store" -avh --no-perms resources/apps/iTerm/. ~/.iterm/
 open ~/.iterm/1ockwood.itermcolors
 
 ###############################################################################
-# ZSH                                                                         #
+# zsh                                                                         #
 ###############################################################################
 
-# Install newer ZSH
+# Install newer zsh
 resources/install/zsh-5.7.1/configure && make && make test && sudo make install
+
+# Make zsh default shell
+chsh -s $(which zsh)
 
 # Install Oh My Zsh
 (curl "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" > "$HOME/Downloads/install.sh" && cd "$HOME/Downloads/" && sh install.sh; rm install.sh)
 
-# Set OMZ theme to "agnoster" in .zshrc
-sed -i '.bak' 's/ZSH_THEME="robbyrussell"/ZSH_THEME="agnoster"/g' ~/.zshrc;
+# Install Antigen
+curl -L git.io/antigen > $HOME/antigen.zsh
+
+# Source helper dotfiles
+echo '\n# Source helper dotfiles' >> ~/.zshrc
+echo 'for file in $HOME/.{aliases,exports,extra,functions,antigenrc}; do' >> ~/.zshrc
+echo '	[ -r "$file" ] && [ -f "$file" ] && source "$file";' >> ~/.zshrc
+echo 'done' >> ~/.zshrc
+echo 'unset file;' >> ~/.zshrc
 
 # Edit .zshrc to hide user@hostname prompt
-echo '\n # Hide user@hostname in prompt' >> ~/.zshrc
+echo '\n# Hide user@hostname in prompt' >> ~/.zshrc
 echo 'prompt_context(){}' >> ~/.zshrc
 
-# Source aliases
-echo '\n # Source aliases' >> ~/.zshrc
-echo 'source $HOME/.aliases' >> ~/.zshrc
-
 ###############################################################################
-# NVM                                                                         #
+# nvm                                                                         #
 ###############################################################################
 
-# Install NVM
+# Install nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | zsh
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
