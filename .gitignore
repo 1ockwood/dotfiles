@@ -1,11 +1,14 @@
-# Folder view configuration files
-.DS_Store
-Desktop.ini
-
-# Thumbnail cache files
+*~
 ._*
+.bak
+.cvs
+.DS_Store
+.Spotlight-V100
+.swp
+.svn
+.Trashes
+Desktop.ini
 Thumbs.db
 
-# Files that might appear on external disks
-.Spotlight-V100
-.Trashes
+# ignore node_modules
+node_modules/
