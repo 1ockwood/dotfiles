@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Enable/Disable Docker Aliases
+DOCKER_ENABLED=false
+
 # Enable aliases to be sudo’ed
 alias sudo="sudo "
 
@@ -9,9 +12,17 @@ alias flushdns="killall -HUP mDNSResponder"
 # Recursively delete `.DS_Store` files
 alias dscleanup="find . -type f -name '*.DS_Store' -ls -delete"
 
+# npm
+alias npmls="npm list --depth 0"
+alias npmlsg="npm list -g --depth 0"
+
+# SSH
+alias sshaa="ssh-add -A"
+
 # Docker
-alias dcu="docker-compose up"
-alias dcub="docker-compose up --build"
-alias dcd="docker-compose down"
-alias dstart="docker start $(docker ps -a -q)"
-alias dstop="docker stop $(docker ps -a -q)"
+if $DOCKER_ENABLED
+then
+  alias dcu="docker-compose up"
+  alias dcub="docker-compose up --build"
+  alias dcd="docker-compose down"
+fi

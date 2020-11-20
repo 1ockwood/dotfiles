@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+source $HOME/.functions
+
+# Only run the following if iTerm has been installed
+read -p "Is iTerm installed? (y/n) " -n 1
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  # Close iTerm if open
+  osascript -e 'tell application "iTerm2" to quit'
+
+  # Set iTerm theme
+  open ~/.iterm/1ockwood.itermcolors
+
+  # Make zsh default shell
+  chsh -s $(which zsh)
+
+  # Install Oh My Zsh
+  curl -o- "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | bash
+
+  # Install Antigen
+  curl -L git.io/antigen > $HOME/antigen.zsh
+
+  # Install nvm
+  install_latest_nvm
+
+  # Install latest node
+  nvm install node
+else
+  echo "Please install iTerm and then run again."
+fi

@@ -1,19 +1,5 @@
 #!/usr/bin/env bash
 
-# Close any open System Preferences panes, to prevent them from overriding
-# settings we’re about to change
-osascript -e 'tell application "System Preferences" to quit'
-
-# Ask for the administrator password upfront
-sudo -v
-
-# Keep-alive: update existing `sudo` time stamp until finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-###############################################################################
-# General UI/UX                                                               #
-###############################################################################
-
 # Turn on dark mode
 defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
@@ -39,22 +25,10 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 # Automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
-# Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
-
-# Disable Notification Center and remove the menu bar icon
-#launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
-
-###############################################################################
-# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
-###############################################################################
-
 # Trackpad: enable tap to click for this user and for the login screen
-defaults -currentHost write NSGlobalDomain com.apple.mouse.sound.beep.flash -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Trackpad: map bottom right corner to right-click
-defaults -currentHost write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 defaults write NSGlobalDomain com.apple.trackpad.enableSecondaryClick -bool true
 
 # Disable “natural” scrolling
@@ -75,13 +49,6 @@ defaults write NSGlobalDomain AppleLanguages -array "en-US"
 defaults write NSGlobalDomain AppleLocale -string "en_US"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Inches"
 defaults write NSGlobalDomain AppleMetricUnits -bool false
-
-# Stop iTunes from responding to the keyboard media keys
-launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
-
-###############################################################################
-# Finder                                                                      #
-###############################################################################
 
 # Show icons for hard drives, servers, and removable media on the desktop
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
@@ -130,11 +97,7 @@ defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
-###############################################################################
-# Dock, Dashboard, and hot corners                                            #
-###############################################################################
-
-# Set the icon size of Dock items to 36 pixels
+# Set the icon size of Dock items
 defaults write com.apple.dock tilesize -int 48
 
 # Change minimize/maximize window effect
@@ -152,57 +115,9 @@ defaults write com.apple.dock show-recents -bool false
 # Add iOS & Watch Simulator to Applications
 sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
 
-# Hot corners
-# Possible values:
-#  0: no-op
-#  2: Mission Control
-#  3: Show application windows
-#  4: Desktop
-#  5: Start screen saver
-#  6: Disable screen saver
-#  7: Dashboard
-# 10: Put display to sleep
-# 11: Launchpad
-# 12: Notification Center
-# Top left screen corner
-defaults write com.apple.dock wvous-tl-corner -int 1
-defaults write com.apple.dock wvous-tl-modifier -int 0
-# Top right screen corner
-defaults write com.apple.dock wvous-tr-corner -int 1
-defaults write com.apple.dock wvous-tr-modifier -int 0
-# Bottom right screen corner
-defaults write com.apple.dock wvous-br-corner -int 1
-defaults write com.apple.dock wvous-br-modifier -int 0
-# Bottom left screen corner → Start screen saver
-defaults write com.apple.dock wvous-bl-corner -int 5
-defaults write com.apple.dock wvous-bl-modifier -int 0
-
-###############################################################################
-# Activity Monitor                                                            #
-###############################################################################
-
-# Show the main window when launching Activity Monitor
-defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
-
-# Show all processes in Activity Monitor
-defaults write com.apple.ActivityMonitor ShowCategory -int 100
-
-###############################################################################
-# TextEdit                                                                    #
-###############################################################################
-
 # Use plain text mode for new TextEdit documents
 defaults write com.apple.TextEdit RichText -int 0
 
 # Open and save files as UTF-8 in TextEdit
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
-
-###############################################################################
-# Photos                                                                      #
-###############################################################################
-
-# Prevent Photos from opening automatically when devices are plugged in
-defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
-
-echo "Done. Restart system to ensure all changes take effect."

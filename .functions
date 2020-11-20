@@ -1,1 +1,25 @@
 #!/usr/bin/env bash
+
+# install zsh from source
+# > install_zsh ~/Downloads/zsh-5.8/
+install_zsh() {
+  if [[ $# -eq 0 ]]
+  then
+    echo 'You must pass in the path to the zsh binary: install_zsh ~/Downloads/zsh-5.8/'
+  else
+    (cd $1 && ./configure && make && make test && sudo make install)
+  fi
+}
+
+# get the latest GitHub release
+# > get_latest_github_release "nvm-sh/nvm"
+get_latest_github_release() {
+  curl --silent "https://api.github.com/repos/$1/releases/latest" |
+    grep '"tag_name":' |
+    sed -E 's/.*"([^"]+)".*/\1/'
+}
+
+# install latest version of NVM
+install_latest_nvm() {
+  curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$(get_latest_github_release "nvm-sh/nvm")/install.sh" | bash
+}
