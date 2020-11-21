@@ -23,6 +23,7 @@ then
 
   # Install nvm
   install_latest_nvm
+  udpate_nvm_default_packages
 
   # Install latest node
   nvm install node

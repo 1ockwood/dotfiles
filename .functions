@@ -25,6 +25,11 @@ install_latest_nvm() {
   curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VER/install.sh" | bash
 }
 
+# update NVM default packages list
+update_nvm_default_packages() {
+  curl --silent "https://raw.githubusercontent.com/1ockwood/dotfiles/master/.nvm/default-packages" > ~/.nvm/default-packages
+}
+
 # install latest version of Fira Code font
 install_latest_firacode() {
   INSTALLED_FIRACODE_VER=$(cat .firacode |

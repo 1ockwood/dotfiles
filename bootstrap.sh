@@ -5,9 +5,10 @@ cd "$(dirname "${BASH_SOURCE}")"
 # Make sure repo is up to date
 git pull origin master
 
-function copy_files() {
+copy_files() {
   # Copy dotfiles
   rsync --exclude ".git/" \
+  --exclude ".nvm/" \
   --exclude "helpers/" \
   --exclude ".DS_Store" \
   --exclude "bootstrap.sh" \
