@@ -104,7 +104,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Source helper dotfiles
-for file in $HOME/.{aliases,exports,extra,functions,antigenrc}; do
+for file in $HOME/.{aliases,exports,functions,local,antigenrc}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done
 unset file;
